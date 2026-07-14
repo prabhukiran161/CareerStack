@@ -11,7 +11,11 @@ const NAV_LINKS = [
   { name: "Blogs", href: "#blogs" },
 ];
 
-export const Navbar = () => {
+type NavbarProps = {
+  showDeveloperName?: boolean;
+};
+
+export const Navbar = ({ showDeveloperName = false }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -19,13 +23,29 @@ export const Navbar = () => {
       {/* Logo with the red // effect */}
       <a
         href="/"
-        className="text-lg font-geomini font-medium tracking-widest text-white hover:text-white/80 transition-colors"
+        className="flex items-center text-lg font-geomini font-medium tracking-widest text-white hover:text-white/80 transition-colors"
       >
-        DEV
-        <span className="text-brand-red font-extrabold px-2 [text-shadow:0px_0px_20px_#FE3548]">
+        <span>DEV</span>
+
+        <span className="relative z-20 text-brand-red font-extrabold px-2 [text-shadow:0px_0px_20px_#FE3548]">
           //
         </span>
-        <span className="text-brand-red font-bold italic">PRABHU</span>
+
+        <span className="relative z-10 overflow-hidden whitespace-nowrap">
+          <motion.span
+            initial={false}
+            animate={{
+              x: showDeveloperName ? 0 : "-100%",
+            }}
+            transition={{
+              duration: 0.75,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="block text-brand-red font-bold italic tracking-[0.12em] whitespace-nowrap"
+          >
+            PRABHU
+          </motion.span>
+        </span>
       </a>
 
       {/* Desktop Links */}

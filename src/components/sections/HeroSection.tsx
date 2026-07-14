@@ -172,15 +172,20 @@ const letterVariants = {
   },
 };
 
-const TypingTagline = ({ show }: { show: boolean }) => {
+type TypingTaglineProps = {
+  show: boolean;
+  onComplete?: () => void;
+};
+
+const TypingTagline = ({ show, onComplete }: TypingTaglineProps) => {
   return (
     <motion.div
       className="
         absolute
-        bottom-[6vh]
+        bottom-[8vh]
         z-20
         text-center
-        text-xl md:text-[2.8rem]
+        text-xl md:text-5xl
         font-light
         text-gray-300
         tracking-wide
@@ -189,6 +194,11 @@ const TypingTagline = ({ show }: { show: boolean }) => {
       variants={containerVariants}
       initial="hidden"
       animate={show ? "visible" : "hidden"}
+      onAnimationComplete={(definition) => {
+        if (definition === "visible") {
+          onComplete?.();
+        }
+      }}
     >
       {TAGLINE.map((part, partIndex) => (
         <span key={partIndex} className={part.className}>
@@ -206,7 +216,11 @@ const TypingTagline = ({ show }: { show: boolean }) => {
   );
 };
 
-export const HeroSection = () => {
+type HeroSectionProps = {
+  onTaglineComplete?: () => void;
+};
+
+export const HeroSection = ({ onTaglineComplete }: HeroSectionProps) => {
   const reduce = useReducedMotion();
   const [phase, setPhase] = useState<Phase>("scatter");
   const [flash, setFlash] = useState(false);
@@ -429,7 +443,7 @@ export const HeroSection = () => {
           style={{
             WebkitMaskImage: `
     radial-gradient(
-      ellipse 78% 92% at 50% 35%
+      ellipse 78% 92% at 50% 35%,
       black 0%,
       black 58%,
       rgba(0, 0, 0, 0.95) 68%,
@@ -440,7 +454,7 @@ export const HeroSection = () => {
   `,
             maskImage: `
     radial-gradient(
-      ellipse 78% 92% at 50% 35%
+      ellipse 78% 92% at 50% 35%,
       black 0%,
       black 58%,
       rgba(0, 0, 0, 0.95) 68%,
@@ -454,7 +468,7 @@ export const HeroSection = () => {
       </motion.div>
 
       {/* 4. Tagline */}
-      <TypingTagline show={showTagline} />
+      <TypingTagline show={showTagline} onComplete={onTaglineComplete} />
 
       {/* 5. Scroll Indicator */}
     </section>
