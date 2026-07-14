@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>prabhukiran</title>
+    <script>
+      window.onerror = function(message, source, lineno, colno, error) {
+        document.body.innerHTML = '<div style="color:red;background:white;padding:20px;font-size:20px;z-index:9999;position:fixed;top:0;left:0;width:100%;height:100%;overflow:auto;">' + 
+          '<b>Runtime Error:</b> ' + message + '<br><br>' + 
+          (error && error.stack ? error.stack.replace(/\\n/g, '<br>') : '') + 
+          '</div>';
+      };
+      window.onunhandledrejection = function(event) {
+        document.body.innerHTML = '<div style="color:red;background:white;padding:20px;font-size:20px;z-index:9999;position:fixed;top:0;left:0;width:100%;height:100%;overflow:auto;">' + 
+          '<b>Unhandled Promise Rejection:</b> ' + (event.reason ? event.reason.toString() : 'Unknown error') + 
+          '</div>';
+      };
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
