@@ -15,7 +15,6 @@ import {
   SiDocker,
   SiGit,
 } from "react-icons/si";
-import { BsMouse } from "react-icons/bs";
 
 type Tech = {
   Icon: IconType;
@@ -149,10 +148,10 @@ type Phase =
 const TAGLINE = [
   { text: "Think ", className: "" },
   {
-    text: "Like",
-    className: "text-brand-red font-semibold italic",
+    text: "Like An ",
+    className: "",
   },
-  { text: " An Engineer", className: "" },
+  { text: "ENGINEER", className: "text-brand-red font-semibold italic" },
 ];
 
 const containerVariants = {
@@ -178,10 +177,10 @@ const TypingTagline = ({ show }: { show: boolean }) => {
     <motion.div
       className="
         absolute
-        bottom-[10vh]
+        bottom-[6vh]
         z-20
         text-center
-        text-xl md:text-5xl
+        text-xl md:text-[2.8rem]
         font-light
         text-gray-300
         tracking-wide
@@ -218,19 +217,20 @@ export const HeroSection = () => {
       return;
     }
     const timers = [
+      // 1. Icons stay visible for recognition
       setTimeout(() => setPhase("converge"), 1000),
-
+      // 2. Convergence completes → energy impact
       setTimeout(() => setFlash(true), 2380),
-
+      // 3. Energy burst completes
       setTimeout(() => setPhase("developer"), 2460),
-
-      setTimeout(() => setFlash(false), 2700),
-
-      setTimeout(() => setPhase("typo"), 3600),
-
-      setTimeout(() => setPhase("tagline"), 4300),
-
-      setTimeout(() => setPhase("scroll"), 5200),
+      // 4. Portrait begins AFTER the burst
+      setTimeout(() => setFlash(false), 3100),
+      // 5. Typography wipe
+      setTimeout(() => setPhase("typo"), 3100),
+      // 6. Tagline typing
+      setTimeout(() => setPhase("tagline"), 3800),
+      // 7. Final state
+      setTimeout(() => setPhase("scroll"), 4700),
     ];
     return () => timers.forEach(clearTimeout);
   }, [reduce]);
@@ -239,22 +239,11 @@ export const HeroSection = () => {
   const showDev = ["developer", "typo", "tagline", "scroll"].includes(phase);
   const showTypo = ["typo", "tagline", "scroll"].includes(phase);
   const showTagline = ["tagline", "scroll"].includes(phase);
-  const showScroll = phase === "scroll";
 
   return (
     <section className="relative w-full h-screen bg-black bg-grid-pattern overflow-hidden flex flex-col items-center justify-center">
-      {/* Edge glow blur */}
-      <div
-        className="absolute -inset-20 z-[1] pointer-events-none blur-[45px]"
-        style={{
-          boxShadow: `
-            inset 0 0 120px 35px rgba(254, 53, 72, 0.20)
-          `,
-        }}
-      />
-
       {/* Central convergence anchor for icons */}
-      <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[45%] z-20">
+      <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
         {/* Tech icon particles */}
         {!showTypo &&
           TECH_ICONS.map((t, i) => (
@@ -329,7 +318,7 @@ export const HeroSection = () => {
               ? { scale: [0, 1, 0.4], opacity: [0, 1, 0] }
               : { scale: 0, opacity: 0 }
           }
-          transition={{ duration: 0.55, ease: "easeOut" }}
+          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
           style={{
             width: 40,
             height: 40,
@@ -363,26 +352,20 @@ export const HeroSection = () => {
             text-center
             font-extenda
             leading-[0.72]
-            text-transparent
-            bg-clip-text
-            bg-linear-to-b
-            from-gray-200
-            via-gray-400
-            to-black
           "
-          style={{
-            WebkitMaskImage:
-              "linear-gradient(to bottom, black 55%, transparent 100%)",
-          }}
         >
-          <span className="block text-[24vw] ">FULL STACK</span>
-          <span className="block text-[24vw]">DEVELOPER</span>
+          <span className="block h-full pb-6 text-[22vw] text-transparent bg-clip-text bg-linear-to-b from-gray-200 via-gray-400 to-black/0.5">
+            FULL STACK
+          </span>
+          <span className="block h-full pb-10 text-[22vw]  text-transparent bg-clip-text bg-linear-to-b from-gray-200 via-gray-400 to-black/0.5 ">
+            DEVELOPER
+          </span>
         </div>
       </motion.div>
 
       {/* 2. Central Developer Image (Smooth Cinematic Reveal) */}
       <motion.div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[55%] md:-translate-y-[45%] z-10 w-[100px] md:w-[350px] flex items-center justify-center pointer-events-none"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-82.5 flex items-center justify-center pointer-events-none"
         initial={{
           scale: 0,
           opacity: 0,
@@ -411,11 +394,62 @@ export const HeroSection = () => {
           willChange: "transform, opacity",
         }}
       >
+        {/* Dark atmospheric halo */}
+        <div
+          className="
+    absolute
+    left-1/2
+    top-[52%]
+    -translate-x-1/2
+    -translate-y-1/2
+    w-[125%]
+    h-[105%]
+    -z-10
+    pointer-events-none
+  "
+          style={{
+            background: `
+      radial-gradient(
+        ellipse 48% 58% at center,
+        rgba(0, 0, 0, 0.62) 0%,
+        rgba(0, 0, 0, 0.42) 30%,
+        rgba(0, 0, 0, 0.20) 55%,
+        rgba(0, 0, 0, 0.07) 72%,
+        transparent 90%
+      )
+    `,
+            filter: "blur(28px)",
+          }}
+        />
         <img
-          src="/images/kunal shah.png"
+          src="/images/prabhu_kiran.png"
           alt="Developer Portrait"
           draggable={false}
-          className="w-full h-auto object-contain drop-shadow-[0_0_30px_rgba(229,9,20,0.5)]"
+          className="relative z-10 w-full h-auto object-contain"
+          style={{
+            WebkitMaskImage: `
+    radial-gradient(
+      ellipse 78% 92% at 50% 35%
+      black 0%,
+      black 58%,
+      rgba(0, 0, 0, 0.95) 68%,
+      rgba(0, 0, 0, 0.72) 78%,
+      rgba(0, 0, 0, 0.35) 88%,
+      transparent 100%
+    )
+  `,
+            maskImage: `
+    radial-gradient(
+      ellipse 78% 92% at 50% 35%
+      black 0%,
+      black 58%,
+      rgba(0, 0, 0, 0.95) 68%,
+      rgba(0, 0, 0, 0.72) 78%,
+      rgba(0, 0, 0, 0.35) 88%,
+      transparent 100%
+    )
+  `,
+          }}
         />
       </motion.div>
 

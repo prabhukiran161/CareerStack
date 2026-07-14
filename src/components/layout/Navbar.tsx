@@ -7,6 +7,7 @@ const NAV_LINKS = [
   { name: "Home", href: "#home" },
   { name: "Projects", href: "#projects" },
   { name: "Skills", href: "#skills" },
+  { name: "About", href: "#about" },
   { name: "Blogs", href: "#blogs" },
 ];
 
@@ -53,7 +54,7 @@ export const Navbar = () => {
       <div className="hidden md:block text-center">
         <a
           href="#contact"
-          className="px-4 py-2 text-sm font-medium text-white border border-brand-red rounded-lg hover:bg-brand-red/10 transition-all shadow-[0_0_15px_rgba(229,9,20,0.3)] hover:shadow-[0_0_25px_rgba(229,9,20,0.5)] bg-black/20"
+          className="px-6 py-3 text-sm font-medium text-white border border-brand-red rounded-full hover:bg-brand-red/10 transition-all shadow-[0_0_15px_rgba(229,9,20,0.3)] hover:shadow-[0_0_25px_rgba(229,9,20,0.5)] bg-black/20"
         >
           Discuss a Project
         </a>
