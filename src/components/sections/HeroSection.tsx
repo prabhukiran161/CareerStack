@@ -146,6 +146,67 @@ type Phase =
   | "tagline"
   | "scroll";
 
+const TAGLINE = [
+  { text: "Think ", className: "" },
+  {
+    text: "Like",
+    className: "text-brand-red font-semibold italic",
+  },
+  { text: " An Engineer", className: "" },
+];
+
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.055,
+    },
+  },
+};
+
+const letterVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+  },
+};
+
+const TypingTagline = ({ show }: { show: boolean }) => {
+  return (
+    <motion.div
+      className="
+        absolute
+        bottom-[10vh]
+        z-20
+        text-center
+        text-xl md:text-5xl
+        font-light
+        text-gray-300
+        tracking-wide
+        whitespace-nowrap
+      "
+      variants={containerVariants}
+      initial="hidden"
+      animate={show ? "visible" : "hidden"}
+    >
+      {TAGLINE.map((part, partIndex) => (
+        <span key={partIndex} className={part.className}>
+          {part.text.split("").map((char, charIndex) => (
+            <motion.span
+              key={`${partIndex}-${charIndex}`}
+              variants={letterVariants}
+            >
+              {char === " " ? "\u00A0" : char}
+            </motion.span>
+          ))}
+        </span>
+      ))}
+    </motion.div>
+  );
+};
+
 export const HeroSection = () => {
   const reduce = useReducedMotion();
   const [phase, setPhase] = useState<Phase>("scatter");
@@ -358,45 +419,8 @@ export const HeroSection = () => {
         />
       </motion.div>
 
-      {/* 4. Tagline (Left Lower-Third) */}
-      <motion.div
-        className="
-        text-center
-          absolute
-          
-          bottom-[10vh]
-          z-20
-          text-xl md:text-5xl
-          font-light
-          text-gray-300
-          tracking-wide
-        "
-        initial={{
-          opacity: 0,
-          y: 15,
-          filter: "blur(5px)",
-        }}
-        animate={
-          showTagline
-            ? {
-                opacity: 1,
-                y: 0,
-                filter: "blur(0px)",
-              }
-            : {
-                opacity: 0,
-                y: 15,
-                filter: "blur(5px)",
-              }
-        }
-        transition={{
-          duration: 0.6,
-          ease: "easeOut",
-        }}
-      >
-        Think <span className="text-brand-red font-semibold italic">Like</span>{" "}
-        An Engineer
-      </motion.div>
+      {/* 4. Tagline */}
+      <TypingTagline show={showTagline} />
 
       {/* 5. Scroll Indicator */}
     </section>
