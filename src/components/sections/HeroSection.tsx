@@ -20,11 +20,11 @@ import { BsMouse } from "react-icons/bs";
 type Tech = {
   Icon: IconType;
   color: string;
-  x: number; // vw offset from center (negative = left)
-  y: number; // vh offset from center (negative = up)
+  x: number;
+  y: number;
   size: number;
-  delay: number; // convergence delay (s)
-  dur: number; // convergence duration (s)
+  delay: number;
+  dur: number;
 };
 
 const TECH_ICONS: Tech[] = [
@@ -159,17 +159,17 @@ export const HeroSection = () => {
     const timers = [
       setTimeout(() => setPhase("converge"), 1000),
 
-      setTimeout(() => setFlash(true), 1850),
+      setTimeout(() => setFlash(true), 2380),
 
-      setTimeout(() => setPhase("developer"), 1800),
+      setTimeout(() => setPhase("developer"), 2460),
 
-      setTimeout(() => setFlash(false), 2200),
+      setTimeout(() => setFlash(false), 2700),
 
-      setTimeout(() => setPhase("typo"), 2600),
+      setTimeout(() => setPhase("typo"), 3600),
 
-      setTimeout(() => setPhase("tagline"), 3200),
+      setTimeout(() => setPhase("tagline"), 4300),
 
-      setTimeout(() => setPhase("scroll"), 3700),
+      setTimeout(() => setPhase("scroll"), 5200),
     ];
     return () => timers.forEach(clearTimeout);
   }, [reduce]);
@@ -182,6 +182,16 @@ export const HeroSection = () => {
 
   return (
     <section className="relative w-full h-screen bg-black bg-grid-pattern overflow-hidden flex flex-col items-center justify-center">
+      {/* Edge glow blur */}
+      <div
+        className="absolute -inset-20 z-[1] pointer-events-none blur-[45px]"
+        style={{
+          boxShadow: `
+            inset 0 0 120px 35px rgba(254, 53, 72, 0.20)
+          `,
+        }}
+      />
+
       {/* Central convergence anchor for icons */}
       <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[45%] z-20">
         {/* Tech icon particles */}
@@ -200,27 +210,26 @@ export const HeroSection = () => {
                 converging
                   ? {
                       x: {
-                        duration: 0.9,
-                        ease: [0.76, 0, 0.24, 1],
+                        duration: t.dur,
+                        delay: t.delay,
+                        ease: [0.5, 0, 0.9, 1],
                       },
                       y: {
-                        duration: 0.9,
-                        ease: [0.76, 0, 0.24, 1],
+                        duration: t.dur * 0.92,
+                        delay: t.delay,
+                        ease: [0.65, 0, 1, 1],
                       },
                       scale: {
-                        duration: 0.9,
-                        ease: [0.76, 0, 0.24, 1],
+                        duration: t.dur,
+                        delay: t.delay,
+                        ease: [0.7, 0, 1, 1],
                       },
                       opacity: {
-                        duration: 0.15,
-                        delay: 0.75,
+                        duration: t.dur,
+                        delay: t.delay + t.dur * 0.55,
                       },
                     }
-                  : {
-                      duration: 0.35,
-                      delay: i * 0.025,
-                      ease: "backOut",
-                    }
+                  : { duration: 0.5, delay: i * 0.03, ease: "backOut" }
               }
             >
               {/* subtle float / 3D rotation */}
@@ -271,81 +280,125 @@ export const HeroSection = () => {
         />
       </div>
 
-      {/* 1. Giant Typography (Behind Image) */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[60%] md:-translate-y-1/2 w-full text-center z-0 overflow-hidden flex items-center justify-center">
-        <motion.h1
-          className="font-extenda w-full md:text-[18vw] text-transparent bg-clip-text bg-gradient-to-b from-gray-200 via-gray-400 to-black"
+      {/* 1. Giant Typography (True Bottom-to-Top Mask Wipe) */}
+      <motion.div
+        className="absolute inset-0 z-0 flex items-center justify-center overflow-hidden pointer-events-none"
+        initial={{
+          clipPath: "inset(100% 0 0 0)",
+        }}
+        animate={{
+          clipPath: showTypo ? "inset(0% 0 0 0)" : "inset(100% 0 0 0)",
+        }}
+        transition={{
+          duration: 0.65,
+          ease: [0.16, 1, 0.3, 1],
+        }}
+      >
+        <div
+          className="
+            flex flex-col
+            items-center
+            justify-center
+            text-center
+            font-extenda
+            leading-[0.72]
+            text-transparent
+            bg-clip-text
+            bg-linear-to-b
+            from-gray-200
+            via-gray-400
+            to-black
+          "
           style={{
             WebkitMaskImage:
-              "linear-gradient(to bottom, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%)",
+              "linear-gradient(to bottom, black 55%, transparent 100%)",
           }}
-          initial={{ clipPath: "inset(100% 0 0 0)", y: 80, opacity: 0 }}
-          animate={
-            showTypo
-              ? { clipPath: "inset(0% 0 0 0)", y: 0, opacity: 1 }
-              : { clipPath: "inset(100% 0 0 0)", y: 80, opacity: 0 }
-          }
-          transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
         >
-          FULL STACK DEVELOPER
-        </motion.h1>
-      </div>
+          <span className="block text-[24vw] ">FULL STACK</span>
+          <span className="block text-[24vw]">DEVELOPER</span>
+        </div>
+      </motion.div>
 
-      {/* 2. Central Developer Image */}
+      {/* 2. Central Developer Image (Smooth Cinematic Reveal) */}
       <motion.div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[55%] md:-translate-y-[45%] z-10 w-[300px] md:w-[450px] flex items-center justify-center pointer-events-none"
-        initial={{ scale: 0, opacity: 0 }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[55%] md:-translate-y-[45%] z-10 w-[100px] md:w-[350px] flex items-center justify-center pointer-events-none"
+        initial={{
+          scale: 0,
+          opacity: 0,
+        }}
         animate={
           showDev
-            ? { scale: [0, 0.15, 0.45, 0.8, 1.03, 1], opacity: 1 }
-            : { scale: 0, opacity: 0 }
+            ? {
+                scale: 1,
+                opacity: 1,
+              }
+            : {
+                scale: 0,
+                opacity: 0,
+              }
         }
         transition={{
-          duration: 1.0,
-          ease: [0.22, 1, 0.36, 1],
-          times: [0, 0.15, 0.4, 0.7, 0.9, 1],
-          opacity: { duration: 0.3 },
+          scale: {
+            duration: 0.65,
+            ease: [0.16, 1, 0.3, 1],
+          },
+          opacity: {
+            duration: 0.08,
+          },
+        }}
+        style={{
+          willChange: "transform, opacity",
         }}
       >
         <img
           src="/images/kunal shah.png"
           alt="Developer Portrait"
+          draggable={false}
           className="w-full h-auto object-contain drop-shadow-[0_0_30px_rgba(229,9,20,0.5)]"
         />
       </motion.div>
 
-      {/* 4. Tagline */}
+      {/* 4. Tagline (Left Lower-Third) */}
       <motion.div
-        className="absolute bottom-28 z-20 text-xl md:text-2xl font-light text-gray-300 tracking-wide"
-        initial={{ opacity: 0, y: 15, filter: "blur(5px)" }}
+        className="
+        text-center
+          absolute
+          
+          bottom-[10vh]
+          z-20
+          text-xl md:text-5xl
+          font-light
+          text-gray-300
+          tracking-wide
+        "
+        initial={{
+          opacity: 0,
+          y: 15,
+          filter: "blur(5px)",
+        }}
         animate={
           showTagline
-            ? { opacity: 1, y: 0, filter: "blur(0px)" }
-            : { opacity: 0, y: 15, filter: "blur(5px)" }
+            ? {
+                opacity: 1,
+                y: 0,
+                filter: "blur(0px)",
+              }
+            : {
+                opacity: 0,
+                y: 15,
+                filter: "blur(5px)",
+              }
         }
-        transition={{ duration: 0.7, ease: "easeOut" }}
+        transition={{
+          duration: 0.6,
+          ease: "easeOut",
+        }}
       >
-        Think <span className="text-brand-red font-semibold">like</span> an
-        Engineer.
+        Think <span className="text-brand-red font-semibold italic">Like</span>{" "}
+        An Engineer
       </motion.div>
 
       {/* 5. Scroll Indicator */}
-      <motion.div
-        className="absolute bottom-10 flex flex-col items-center gap-2 text-white/50 z-20"
-        initial={{ opacity: 0, y: 12 }}
-        animate={showScroll ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
-        <span className="text-xs uppercase tracking-widest">
-          Scroll to Explore
-        </span>
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-        >
-          <BsMouse size={24} />
-        </motion.div>
-      </motion.div>
     </section>
   );
 };

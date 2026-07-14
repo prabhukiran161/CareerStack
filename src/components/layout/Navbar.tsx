@@ -18,13 +18,13 @@ export const Navbar = () => {
       {/* Logo with the red // effect */}
       <a
         href="/"
-        className="text-lg font-geomini font-semibold tracking-widest text-white hover:text-white/80 transition-colors"
+        className="text-lg font-geomini font-medium tracking-widest text-white hover:text-white/80 transition-colors"
       >
         DEV
         <span className="text-brand-red font-extrabold px-2 [text-shadow:0px_0px_20px_#FE3548]">
           //
         </span>
-        PRABHU
+        <span className="text-brand-red font-bold italic">PRABHU</span>
       </a>
 
       {/* Desktop Links */}
