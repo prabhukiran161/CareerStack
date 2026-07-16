@@ -19,24 +19,29 @@ export const SkillsSection = () => {
         
         {/* The center of this relative container is the mathematical origin (0,0) */}
         
-        {/* 2. Back Half Orbit */}
+        {/* 2. Back Half Orbit Rings */}
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
-          <OrbitLayout layer="back" />
+          <OrbitLayout layer="back-rings" />
         </div>
 
-        {/* 3. Portrait */}
+        {/* 3. Back Half Nodes */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-25 pointer-events-auto">
+          <OrbitLayout layer="back-nodes" />
+        </div>
+
+        {/* 4. Portrait */}
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-30">
           <SkillsPortrait />
         </div>
 
-        {/* 4. Front Half Orbit */}
+        {/* 5. Front Half Orbit Rings */}
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-40">
-          <OrbitLayout layer="front" />
+          <OrbitLayout layer="front-rings" />
         </div>
 
-        {/* 5. Icons */}
+        {/* 6. Front Half Nodes */}
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-auto">
-          <OrbitLayout layer="icons" />
+          <OrbitLayout layer="front-nodes" />
         </div>
       </div>
 
