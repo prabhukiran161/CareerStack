@@ -1,8 +1,8 @@
-import { createLazyFileRoute } from '@tanstack/react-router';
-import { HeroSection } from '../components/sections/HeroSection';
-import { useGlobalContext } from '../config/GlobalContext';
+import { createLazyFileRoute } from "@tanstack/react-router";
+import { HeroSection } from "../components/sections/HeroSection";
+import { useGlobalContext } from "../config/GlobalContext";
 
-export const Route = createLazyFileRoute('/')({
+export const Route = createLazyFileRoute("/")({
   component: Index,
 });
 

@@ -9,7 +9,6 @@ export const Landing = () => {
         <HeroSection />
         {/* Future sections will go here */}
         {/* <ProjectsSection /> */}
-        {/* <SkillsSection /> */}
         {/* <BlogsSection /> */}
       </main>
     </div>
