@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { HiX } from "react-icons/hi";
-import { cn } from "../../utils/cn";
+import { Link } from "@tanstack/react-router";
 import { NAV_LINKS } from "../../config/navigation.config";
 
 type MobileNavSheetProps = {
@@ -30,17 +30,16 @@ export const MobileNavSheet = ({ isOpen, onClose }: MobileNavSheetProps) => {
             <div className="w-12 h-1.5 bg-white/20 rounded-full mb-4" />
 
             {NAV_LINKS.map((link) => (
-              <a
+              <Link
                 key={link.name}
-                href={link.href}
+                to={link.href}
                 onClick={onClose}
-                className={cn(
-                  "text-2xl font-semibold w-full text-center py-2 active:bg-white/5 rounded-xl transition-colors",
-                  link.name === "Home" ? "text-brand-red" : "text-white",
-                )}
+                activeProps={{ className: "text-brand-red" }}
+                inactiveProps={{ className: "text-white" }}
+                className="text-2xl font-semibold w-full text-center py-2 active:bg-white/5 rounded-xl transition-colors"
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
 
             <a

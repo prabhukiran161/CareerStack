@@ -1,40 +1,36 @@
 import { useState } from "react";
 import { HiMenu } from "react-icons/hi";
-import { cn } from "../../utils/cn";
+import { Link } from "@tanstack/react-router";
 import { NAV_LINKS } from "../../config/navigation.config";
 import { NavbarLogo } from "./NavbarLogo";
 import { MobileNavSheet } from "./MobileNavSheet";
 
-type NavbarProps = {
-  showDeveloperName?: boolean;
-};
-
-export const Navbar = ({ showDeveloperName = false }: NavbarProps) => {
+export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <nav className="fixed top-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[90vw] z-50 flex items-center justify-between py-5 px-6 backdrop-blur- bg-[#121212]/70 border border-white/10 rounded-2xl shadow-2xl">
-      <NavbarLogo showDeveloperName={showDeveloperName} />
+      <NavbarLogo />
 
       {/* Desktop Links */}
       <div className="hidden md:flex space-x-8">
         {NAV_LINKS.map((link) => (
-          <a
+          <Link
             key={link.name}
-            href={link.href}
-            className={cn(
-              "text-lg transition-colors relative py-1",
-              link.name === "Home"
-                ? "text-brand-red" // Active state
-                : "text-gray-300 hover:text-white",
-            )}
+            to={link.href}
+            activeProps={{ className: "text-brand-red font-medium" }}
+            inactiveProps={{ className: "text-gray-300 hover:text-white" }}
+            className="text-lg transition-colors relative py-1"
           >
-            {link.name}
-            {/* Glowing red underline for the active link */}
-            {link.name === "Home" && (
-              <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-brand-red shadow-[0_0_8px_rgba(229,9,20,0.8)] rounded-full" />
+            {({ isActive }) => (
+              <>
+                {link.name}
+                {isActive && (
+                  <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-brand-red shadow-[0_0_8px_rgba(229,9,20,0.8)] rounded-full" />
+                )}
+              </>
             )}
-          </a>
+          </Link>
         ))}
       </div>
 

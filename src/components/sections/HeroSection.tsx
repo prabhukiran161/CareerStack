@@ -17,6 +17,7 @@ export const HeroSection = ({ onTaglineComplete }: HeroSectionProps) => {
     showTypography,
     showTagline,
     showSocialCore,
+    hasHeroAnimationPlayed,
   } = useHeroSequence();
 
   return (
@@ -26,12 +27,13 @@ export const HeroSection = ({ onTaglineComplete }: HeroSectionProps) => {
     >
       <HeroTechField converging={converging} />
       <HeroEnergyBurst active={flash} />
-      <HeroTypography visible={showTypography} />
+      <HeroTypography visible={showTypography} skipAnimation={hasHeroAnimationPlayed} />
       <HeroPortrait
         visible={showDeveloper}
         socialCoreEnabled={showSocialCore}
+        skipAnimation={hasHeroAnimationPlayed}
       />
-      <HeroTagline show={showTagline} onComplete={onTaglineComplete} />
+      <HeroTagline show={showTagline} onComplete={onTaglineComplete} skipAnimation={hasHeroAnimationPlayed} />
     </section>
   );
 };

@@ -4,16 +4,18 @@ import { SocialCore } from "./SocialCore";
 type HeroPortraitProps = {
   visible: boolean;
   socialCoreEnabled: boolean;
+  skipAnimation?: boolean;
 };
 
 export const HeroPortrait = ({
   visible,
   socialCoreEnabled,
+  skipAnimation,
 }: HeroPortraitProps) => {
   return (
     <motion.div
       className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[55%] md:-translate-y-[45%] z-10 w-[100px] md:w-[350px] flex items-center justify-center pointer-events-none"
-      initial={{ scale: 0, opacity: 0 }}
+      initial={skipAnimation ? false : { scale: 0, opacity: 0 }}
       animate={visible ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
       transition={{
         scale: { duration: 0.65, ease: [0.16, 1, 0.3, 1] },
@@ -41,7 +43,7 @@ export const HeroPortrait = ({
       />
 
       {/* Social Core mounted inside portrait wrapper to use the exact chest coordinates */}
-      <SocialCore enabled={socialCoreEnabled} />
+      <SocialCore enabled={socialCoreEnabled} skipAnimation={skipAnimation} />
     </motion.div>
   );
 };

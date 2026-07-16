@@ -5,7 +5,7 @@ import { useSocialRotation } from "../../hooks/useSocialRotation";
 import { SocialCoreButton } from "./SocialCoreButton";
 import { SocialOrbitNode } from "./SocialOrbitNode";
 
-export const SocialCore = ({ enabled }: { enabled: boolean }) => {
+export const SocialCore = ({ enabled, skipAnimation }: { enabled: boolean; skipAnimation?: boolean }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isCoreHovered, setIsCoreHovered] = useState(false);
 
@@ -21,9 +21,9 @@ export const SocialCore = ({ enabled }: { enabled: boolean }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.8 }}
+      initial={skipAnimation ? false : { opacity: 0, scale: 0.8 }}
       animate={enabled ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-      transition={{ duration: 0.6, delay: 0.4 }} // Delay to let navbar reveal finish
+      transition={{ duration: 0.6, delay: skipAnimation ? 0 : 0.4 }} // Remove delay if skipped
       className="absolute left-1/2 top-1/2 translate-x-[-70%] -translate-y-1/2 mt-10 z-30 pointer-events-auto"
     >
       <div className="relative">

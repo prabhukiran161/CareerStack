@@ -1,13 +1,13 @@
 import { motion } from "framer-motion";
+import { Link } from "@tanstack/react-router";
+import { useGlobalContext } from "../../config/GlobalContext";
 
-type NavbarLogoProps = {
-  showDeveloperName: boolean;
-};
+export const NavbarLogo = () => {
+  const { showDeveloperName } = useGlobalContext();
 
-export const NavbarLogo = ({ showDeveloperName }: NavbarLogoProps) => {
   return (
-    <a
-      href="/"
+    <Link
+      to="/"
       className="flex items-center text-lg font-geomini font-medium tracking-widest text-white hover:text-white/80 transition-colors"
     >
       <span>DEV</span>
@@ -31,6 +31,6 @@ export const NavbarLogo = ({ showDeveloperName }: NavbarLogoProps) => {
           PRABHU
         </motion.span>
       </span>
-    </a>
+    </Link>
   );
 };

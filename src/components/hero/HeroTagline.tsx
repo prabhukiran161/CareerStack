@@ -4,6 +4,7 @@ import { HERO_TAGLINE } from "../../config/hero.config";
 type HeroTaglineProps = {
   show: boolean;
   onComplete?: () => void;
+  skipAnimation?: boolean;
 };
 
 const containerVariants = {
@@ -24,7 +25,7 @@ const letterVariants = {
   },
 };
 
-export const HeroTagline = ({ show, onComplete }: HeroTaglineProps) => {
+export const HeroTagline = ({ show, onComplete, skipAnimation }: HeroTaglineProps) => {
   return (
     <motion.div
       className="
@@ -39,7 +40,7 @@ export const HeroTagline = ({ show, onComplete }: HeroTaglineProps) => {
         whitespace-nowrap
       "
       variants={containerVariants}
-      initial="hidden"
+      initial={skipAnimation ? false : "hidden"}
       animate={show ? "visible" : "hidden"}
       onAnimationComplete={(definition) => {
         if (definition === "visible") {

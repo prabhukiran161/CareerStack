@@ -2,15 +2,19 @@ import { useEffect, useState } from "react";
 import { useReducedMotion } from "framer-motion";
 import type { HeroPhase } from "../types/hero.types";
 import { HERO_TIMING } from "../config/hero.config";
+import { useGlobalContext } from "../config/GlobalContext";
 
 export const useHeroSequence = () => {
   const reduceMotion = useReducedMotion();
+  const { hasHeroAnimationPlayed, setHasHeroAnimationPlayed } = useGlobalContext();
 
-  const [phase, setPhase] = useState<HeroPhase>(reduceMotion ? "scroll" : "scatter");
+  const [phase, setPhase] = useState<HeroPhase>(
+    reduceMotion || hasHeroAnimationPlayed ? "scroll" : "scatter"
+  );
   const [flash, setFlash] = useState(false);
 
   useEffect(() => {
-    if (reduceMotion) {
+    if (reduceMotion || hasHeroAnimationPlayed) {
       return;
     }
 
@@ -21,13 +25,16 @@ export const useHeroSequence = () => {
       setTimeout(() => setFlash(false), HERO_TIMING.ENERGY_BURST_END),
       setTimeout(() => setPhase("typo"), HERO_TIMING.TYPOGRAPHY_REVEAL),
       setTimeout(() => setPhase("tagline"), HERO_TIMING.TAGLINE_START),
-      setTimeout(() => setPhase("scroll"), HERO_TIMING.FINAL_STATE),
+      setTimeout(() => {
+        setPhase("scroll");
+        setHasHeroAnimationPlayed(true);
+      }, HERO_TIMING.FINAL_STATE),
     ];
 
     return () => {
       timers.forEach(clearTimeout);
     };
-  }, [reduceMotion]);
+  }, [reduceMotion, hasHeroAnimationPlayed, setHasHeroAnimationPlayed]);
 
   return {
     phase,
@@ -37,5 +44,6 @@ export const useHeroSequence = () => {
     showTypography: ["typo", "tagline", "scroll"].includes(phase),
     showTagline: ["tagline", "scroll"].includes(phase),
     showSocialCore: phase === "scroll",
+    hasHeroAnimationPlayed,
   };
 };

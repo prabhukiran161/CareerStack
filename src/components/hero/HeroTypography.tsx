@@ -2,13 +2,14 @@ import { motion } from "framer-motion";
 
 type HeroTypographyProps = {
   visible: boolean;
+  skipAnimation?: boolean;
 };
 
-export const HeroTypography = ({ visible }: HeroTypographyProps) => {
+export const HeroTypography = ({ visible, skipAnimation }: HeroTypographyProps) => {
   return (
     <motion.div
       className="absolute inset-0 z-0 flex items-center justify-center overflow-hidden pointer-events-none"
-      initial={{
+      initial={skipAnimation ? false : {
         clipPath: "inset(100% 0 0 0)",
       }}
       animate={{
