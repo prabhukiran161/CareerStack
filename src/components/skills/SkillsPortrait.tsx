@@ -15,11 +15,7 @@ export const SkillsPortrait = () => {
         src="/images/prabhu_kiran.png"
         alt="Prabhu Kiran"
         draggable={false}
-        className="w-full h-auto object-contain"
-        // style={{
-        //   WebkitMaskImage: `linear-gradient(to bottom, black 60%, transparent 100%)`,
-        //   maskImage: `linear-gradient(to bottom, black 60%, transparent 100%)`,
-        // }}
+        className="w-full h-auto object-contain relative z-0"
       />
     </div>
   );

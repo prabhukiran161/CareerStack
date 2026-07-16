@@ -1,91 +1,106 @@
-import { SKILLS_CONFIG, type OrbitNodeConfig } from "../../../config/skills.config";
+import { motion, MotionValue } from "framer-motion";
+import {
+  type OrbitNodeConfig,
+  SKILLS_CONFIG,
+} from "../../../config/skills.config";
 
 type OrbitNodeProps = {
-  config: OrbitNodeConfig;
-  angle: number;
+  node: OrbitNodeConfig;
+  orbitColor: string;
+  x: MotionValue<number>;
+  y: MotionValue<number>;
+  opacity: MotionValue<number>;
+  scale: MotionValue<number>;
+  glowOpacity: MotionValue<number>;
+  tilt: MotionValue<number>;
+  zIndex: MotionValue<number>;
+  onHoverStart: () => void;
+  onHoverEnd: () => void;
 };
 
-export const OrbitNode = ({ config, angle }: OrbitNodeProps) => {
-  const { orbitId, Icon, label, iconColor, labelColor } = config;
-  const { 
-    iconSize, 
-    iconSaturation, 
-    iconBrightness,
-    glassTiltStrength,
-    orbitVisualOffset
-  } = SKILLS_CONFIG.layout;
-  
-  // Find the parent orbit config to get radius and scale
-  const orbit = SKILLS_CONFIG.orbits.find((o) => o.id === orbitId);
-  if (!orbit) return null;
-
-  const { radius, iconScale, nodeGlowOpacity } = orbit;
-  const ry = radius * SKILLS_CONFIG.layout.ellipseScaleY;
-
-  // Convert angle to radians for layout
-  const radians = (angle * Math.PI) / 180;
-  
-  // Mathematical position on the ellipse
-  const x = Math.cos(radians) * radius + config.xOffset;
-  
-  // Apply the artistic visual offset so the 60px box sits correctly on the 2.5px line
-  const y = Math.sin(radians) * ry + orbit.yOffset + orbitVisualOffset + config.yOffset;
-
-  // Atmospheric Perspective - driven entirely by configuration
-  const currentOpacity = config.depth;
-  const currentScale = 0.95 + config.depth * 0.05; // 0.95 (at depth 0) -> 1.0 (at depth 1)
-  
-  // Subtle Depth Glow Adjustment (glow fades slightly in the back)
-  const currentGlowOpacity = nodeGlowOpacity * (0.7 + 0.3 * config.depth);
-
-  // Curvature Tilting based on tangent (cosine provides left/right horizontal position)
-  const tilt = Math.cos(radians) * glassTiltStrength;
+export const OrbitNode = ({
+  node,
+  orbitColor,
+  x,
+  y,
+  opacity,
+  scale,
+  glowOpacity,
+  tilt,
+  zIndex,
+  onHoverStart,
+  onHoverEnd,
+}: OrbitNodeProps) => {
+  const { Icon, label, iconColor, labelColor } = node;
+  const { iconSize, iconSaturation, iconBrightness } = SKILLS_CONFIG.layout;
 
   return (
-    <div
+    <motion.div
       className="group absolute left-0 top-0 overflow-visible flex flex-col items-center justify-center pointer-events-auto"
       style={{
-        // Positioning and depth scaling applied to the whole node
-        transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) scale(${iconScale * currentScale})`,
-        opacity: currentOpacity,
-        zIndex: config.behindPortrait ? 25 : 50,
+        x,
+        y,
+        opacity,
+        scale,
+        zIndex,
+        // Centering offset applied via translate to keep x/y pure
+        translateX: "-50%",
+        translateY: "-50%",
       }}
+      onHoverStart={onHoverStart}
+      onHoverEnd={onHoverEnd}
     >
-      <div className="relative w-[60px] h-[60px] flex items-center justify-center">
-        
-        {/* Glass Container (Rotates based on orbit curve) */}
-        <div 
-          className="absolute inset-0 rounded-full bg-[#080808]/90 border border-[rgba(255,255,255,0.07)] backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.06),_0_8px_16px_rgba(0,0,0,0.4)] transition-transform duration-300"
-          style={{ transform: `rotate(${tilt}deg)` }}
+      {/* Soft Float Container */}
+      <motion.div
+        className="relative w-[60px] h-[60px] flex items-center justify-center"
+        animate={{ y: ["-2px", "2px", "-2px"] }}
+        transition={{
+          duration: 4 + Math.random() * 2,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      >
+        {/* Glass Container (Rotates & Breathes, scales on hover) */}
+        <motion.div
+          className="absolute inset-0 rounded-full bg-[#080808]/90 border border-[rgba(255,255,255,0.07)] backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.06),_0_8px_16px_rgba(0,0,0,0.4)]"
+          style={{ rotate: tilt }}
+          animate={{ scale: ["0.99", "1.01", "0.99"] }}
+          transition={{
+            duration: 3 + Math.random(),
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          whileHover={{ scale: 1.08 }}
         />
 
-        {/* Glow (Stays Upright) */}
-        <div 
-          className="absolute inset-0 rounded-full blur-[14px]"
-          style={{ 
-            backgroundColor: orbit.color,
-            opacity: currentGlowOpacity
+        {/* Glow (Stays Upright, increases on hover) */}
+        <motion.div
+          className="absolute inset-0 rounded-full blur-[10px]"
+          style={{
+            backgroundColor: orbitColor,
+            opacity: glowOpacity,
           }}
+          whileHover={{ opacity: 0.15 }}
         />
 
         {/* Logo (Stays Upright) */}
-        <Icon 
-          size={iconSize} 
-          className="relative z-10" 
+        <Icon
+          size={iconSize}
+          className="relative z-10 transition-transform duration-300 group-hover:scale-110"
           style={{
             color: iconColor,
-            filter: `saturate(${iconSaturation}) brightness(${iconBrightness})`
+            filter: `saturate(${iconSaturation}) brightness(${iconBrightness})`,
           }}
         />
-      </div>
+      </motion.div>
 
       {/* Label */}
-      <span 
+      <span
         className="absolute top-[70px] opacity-0 translate-y-[6px] scale-95 group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100 transition-all duration-300 text-xs font-medium tracking-wide whitespace-nowrap"
         style={{ color: labelColor }}
       >
         {label}
       </span>
-    </div>
+    </motion.div>
   );
 };

@@ -5,7 +5,7 @@ export const SkillsTypography = () => {
 
   return (
     <div
-      className="absolute flex flex-col items-center justify-center text-center font-extenda leading-[0.75] pointer-events-none opacity-15"
+      className="absolute flex flex-col items-center justify-center text-center font-extenda leading-[0.75] pointer-events-none opacity-50"
       style={{
         transform: `translateY(${typographyOffsetTop}px)`,
       }}
