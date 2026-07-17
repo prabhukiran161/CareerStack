@@ -1,4 +1,7 @@
+import { useContext } from "react";
+import { motion } from "framer-motion";
 import { SKILLS_CONFIG, type OrbitConfig } from "../../../config/skills.config";
+import { OrbitContext } from "./OrbitContext";
 
 type OrbitRingProps = {
   config: OrbitConfig;
@@ -8,6 +11,9 @@ type OrbitRingProps = {
 export const OrbitRing = ({ config, isFront }: OrbitRingProps) => {
   const { radius, color, glowOpacity, blur } = config;
   const ry = radius * SKILLS_CONFIG.layout.ellipseScaleY;
+  
+  const { introState } = useContext(OrbitContext);
+  const { timeline, presets, master } = SKILLS_CONFIG.animation;
 
   // Since we render inside a relative container, we center it using 50%
   // A relative path string using A (elliptical arc)
@@ -18,13 +24,34 @@ export const OrbitRing = ({ config, isFront }: OrbitRingProps) => {
 
   const pathData = `M -${radius} 0 A ${radius} ${ry} 0 0 ${sweepFlag} ${radius} 0`;
 
+  let delay = timeline.rings.topDelay;
+  if (config.id === "middle") delay = timeline.rings.middleDelay;
+  if (config.id === "bottom") delay = timeline.rings.bottomDelay;
+
   return (
-    <div
+    <motion.div
       className="absolute left-0 top-0 pointer-events-none"
+      initial={presets.rings.initial}
+      animate={
+        introState !== "idle" || master.debug.disableRings
+          ? { 
+              scale: [0.9, 1.02, 1], 
+              opacity: [0, 0.8, 1],
+              filter: ["brightness(1)", "brightness(1.8)", "brightness(1)"]
+            }
+          : presets.rings.initial
+      }
+      transition={{
+        duration: timeline.rings.duration * master.speedMultiplier,
+        delay: delay * master.speedMultiplier,
+        times: [0, 0.7, 1],
+        ease: "easeInOut",
+      }}
       style={{
         // translate(-50%, -50%) centers the SVG box over the origin.
         // yOffset is pure vertical translation for 3D stacking.
-        transform: `translate(-50%, calc(-50% + ${config.yOffset}px))`,
+        x: "-50%",
+        y: `calc(-50% + ${config.yOffset}px)`,
       }}
     >
       <svg
@@ -61,6 +88,6 @@ export const OrbitRing = ({ config, isFront }: OrbitRingProps) => {
           style={{ filter: blur ? `blur(${blur}px)` : "none" }}
         />
       </svg>
-    </div>
+    </motion.div>
   );
 };

@@ -64,6 +64,83 @@ export const SKILLS_CONFIG = {
     orbitVisualOffset: -8, // Anchor the icon visually to the SVG line
     portraitOcclusionThreshold: -0.15, // Clip icons early
   },
+  animation: {
+    master: {
+      speedMultiplier: 1,
+      debug: {
+        disablePortrait: false,
+        disableRings: false,
+        disableTypography: false,
+        disableIcons: false,
+        disableRotation: false,
+        disableTagline: false,
+      },
+    },
+    timeline: {
+      portrait: {
+        delay: 0.0,
+        duration: 0.65,
+      },
+      rings: {
+        topDelay: 0.3,
+        middleDelay: 0.4,
+        bottomDelay: 0.5,
+        duration: 0.45,
+      },
+      typography: {
+        delay: 0.52,
+        duration: 1.5,
+      },
+      icons: {
+        delay: 0.9,
+        duration: 0.5,
+        stagger: 0.05,
+      },
+      rotation: {
+        delay: 1.25,
+        duration: 1.0,
+      },
+      tagline: {
+        linesDelay: 1.55,
+        linesDuration: 0.1,
+        textDelay: 1.7,
+        textDuration: 0.9,
+      },
+    },
+    presets: {
+      portrait: {
+        ease: [0.16, 1, 0.3, 1] as any,
+        initial: { y: 40, scale: 0.96, opacity: 0 },
+      },
+      rings: {
+        initial: { scale: 9, opacity: 0 },
+      },
+      typography: {
+        ease: [0.16, 1, 0.3, 1] as const,
+        initial: {
+          scale: 1,
+          opacity: 0,
+          letterSpacing: "14px",
+          filter: "blur(8px)",
+        },
+        animate: {
+          scale: 1,
+          opacity: 0.5,
+          letterSpacing: "0px",
+          filter: "blur(0px)",
+        },
+      },
+      icons: {
+        initial: { scale: 0, opacity: 0 },
+      },
+      rotation: {
+        ease: "easeInOut" as any,
+      },
+      tagline: {
+        textEase: "easeOut" as any,
+      },
+    },
+  },
   orbits: [
     {
       id: "top",

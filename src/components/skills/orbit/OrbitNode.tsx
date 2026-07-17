@@ -7,6 +7,7 @@ import {
 type OrbitNodeProps = {
   node: OrbitNodeConfig;
   orbitColor: string;
+  globalIndex: number;
   x: MotionValue<number>;
   y: MotionValue<number>;
   opacity: MotionValue<number>;
