@@ -4,10 +4,8 @@ import {
   SiNodedotjs,
   SiFlutter,
   SiFirebase,
-  SiSolidity,
   SiPolygon,
   SiNextdotjs,
-  SiTypescript,
 } from "react-icons/si";
 
 export type ProjectTech = {
