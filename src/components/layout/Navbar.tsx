@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { HiMenu } from "react-icons/hi";
 import { Link } from "@tanstack/react-router";
 import { NAV_LINKS } from "../../config/navigation.config";
@@ -7,9 +7,24 @@ import { MobileNavSheet } from "./MobileNavSheet";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <nav className="fixed top-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[90vw] z-50 flex items-center justify-between py-5 px-6 backdrop-blur- bg-[#121212]/70 border border-white/10 rounded-2xl shadow-2xl">
+    <nav
+      className={`fixed top-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[90vw] z-50 flex items-center justify-between py-5 px-6 rounded-2xl transition-all duration-300 ${
+        isScrolled
+          ? "backdrop-blur-2xl bg-[#0A0A0A]/90 border border-white/15 shadow-[0_12px_35px_rgba(0,0,0,0.85)] py-4"
+          : "backdrop-blur-xl bg-[#121212]/85 border border-white/10 shadow-2xl"
+      }`}
+    >
       <NavbarLogo />
 
       {/* Desktop Links */}

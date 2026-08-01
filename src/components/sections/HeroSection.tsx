@@ -27,13 +27,20 @@ export const HeroSection = ({ onTaglineComplete }: HeroSectionProps) => {
     >
       <HeroTechField converging={converging} />
       <HeroEnergyBurst active={flash} />
-      <HeroTypography visible={showTypography} skipAnimation={hasHeroAnimationPlayed} />
+      <HeroTypography
+        visible={showTypography}
+        skipAnimation={hasHeroAnimationPlayed}
+      />
       <HeroPortrait
         visible={showDeveloper}
         socialCoreEnabled={showSocialCore}
         skipAnimation={hasHeroAnimationPlayed}
       />
-      <HeroTagline show={showTagline} onComplete={onTaglineComplete} skipAnimation={hasHeroAnimationPlayed} />
+      <HeroTagline
+        show={showTagline}
+        onComplete={onTaglineComplete}
+        skipAnimation={hasHeroAnimationPlayed}
+      />
     </section>
   );
 };
