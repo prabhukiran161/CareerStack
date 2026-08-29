@@ -11,7 +11,7 @@ const BOTTOM_NAV_ITEMS = [
 export const MobileBottomNav = () => {
   return (
     <div className="md:hidden fixed bottom-5 left-1/2 -translate-x-1/2 w-[92%] max-w-sm z-50">
-      <nav className="bg-[#0A0A0A]/90 backdrop-blur-2xl border border-white/10 rounded-2xl py-2.5 px-4 shadow-[0_10px_35px_rgba(0,0,0,0.9)] flex items-center justify-around">
+      <nav className="bg-[#0A0A0A]/90 backdrop-blur-2xl border border-white/10 rounded-2xl py-2.5 shadow-[0_10px_35px_rgba(0,0,0,0.9)] flex items-center justify-around">
         {BOTTOM_NAV_ITEMS.map((item) => {
           const IconComponent = item.icon;
           return (
@@ -34,7 +34,9 @@ export const MobileBottomNav = () => {
                   </div>
                   <span
                     className={`text-[10px] tracking-widest font-bold mt-1 transition-colors duration-200 ${
-                      isActive ? "text-[#FE6B7B]" : "text-gray-400 group-hover:text-gray-300"
+                      isActive
+                        ? "text-[#FE6B7B]"
+                        : "text-gray-400 group-hover:text-gray-300"
                     }`}
                   >
                     {item.name}

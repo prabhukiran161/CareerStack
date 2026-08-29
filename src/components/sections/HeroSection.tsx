@@ -29,7 +29,7 @@ export const HeroSection = ({ onTaglineComplete }: HeroSectionProps) => {
       <HeroEnergyBurst active={flash} />
 
       {/* Section 1: Typography + Portrait (Centered Box with bottom margin) */}
-      <div className="relative w-full h-[280px] sm:h-[320px] md:h-[540px] flex flex-col items-center justify-center">
+      <div className="relative w-full h-[320px] sm:h-[320px] md:h-[540px] flex flex-col items-center justify-center">
         <HeroTypography
           visible={showTypography}
           skipAnimation={hasHeroAnimationPlayed}
