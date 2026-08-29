@@ -22,6 +22,7 @@ type OrbitNodeProps = {
 export const OrbitNode = ({
   node,
   orbitColor,
+  globalIndex,
   x,
   y,
   opacity,
@@ -34,6 +35,10 @@ export const OrbitNode = ({
 }: OrbitNodeProps) => {
   const { Icon, label, iconColor, labelColor } = node;
   const { iconSize, iconSaturation, iconBrightness } = SKILLS_CONFIG.layout;
+
+  // Pure deterministic variation based on node globalIndex
+  const floatDuration = 4 + ((globalIndex * 37) % 20) / 10;
+  const pulseDuration = 3 + ((globalIndex * 53) % 10) / 10;
 
   return (
     <motion.div
@@ -56,7 +61,7 @@ export const OrbitNode = ({
         className="relative w-[60px] h-[60px] flex items-center justify-center"
         animate={{ y: ["-2px", "2px", "-2px"] }}
         transition={{
-          duration: 4 + Math.random() * 2,
+          duration: floatDuration,
           repeat: Infinity,
           ease: "easeInOut",
         }}
@@ -67,7 +72,7 @@ export const OrbitNode = ({
           style={{ rotate: tilt }}
           animate={{ scale: ["0.99", "1.01", "0.99"] }}
           transition={{
-            duration: 3 + Math.random(),
+            duration: pulseDuration,
             repeat: Infinity,
             ease: "easeInOut",
           }}

@@ -24,7 +24,7 @@ export const SocialCore = ({ enabled, skipAnimation }: { enabled: boolean; skipA
       initial={skipAnimation ? false : { opacity: 0, scale: 0.8 }}
       animate={enabled ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
       transition={{ duration: 0.6, delay: skipAnimation ? 0 : 0.4 }} // Remove delay if skipped
-      className="absolute left-1/2 top-1/2 translate-x-[-70%] -translate-y-1/2 mt-10 z-30 pointer-events-auto"
+      className="absolute left-1/2 top-1/2 translate-x-[-50%] md:translate-x-[-70%] -translate-y-1/2 mt-6 md:mt-10 z-30 pointer-events-auto"
     >
       <div className="relative">
         <SocialCoreButton

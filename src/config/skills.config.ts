@@ -109,7 +109,7 @@ export const SKILLS_CONFIG = {
     },
     presets: {
       portrait: {
-        ease: [0.16, 1, 0.3, 1] as any,
+        ease: [0.16, 1, 0.3, 1] as const,
         initial: { y: 40, scale: 0.96, opacity: 0 },
       },
       rings: {
@@ -134,10 +134,10 @@ export const SKILLS_CONFIG = {
         initial: { scale: 0, opacity: 0 },
       },
       rotation: {
-        ease: "easeInOut" as any,
+        ease: "easeInOut" as const,
       },
       tagline: {
-        textEase: "easeOut" as any,
+        textEase: "easeOut" as const,
       },
     },
   },

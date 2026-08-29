@@ -1,5 +1,6 @@
 import { createRootRoute, Outlet } from '@tanstack/react-router';
 import { Navbar } from '../components/layout/Navbar';
+import { MobileBottomNav } from '../components/layout/MobileBottomNav';
 
 export const Route = createRootRoute({
   component: () => (
@@ -8,6 +9,7 @@ export const Route = createRootRoute({
       <main>
         <Outlet />
       </main>
+      <MobileBottomNav />
     </div>
   ),
 });

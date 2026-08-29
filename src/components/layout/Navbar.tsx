@@ -1,12 +1,9 @@
 import { useState, useEffect } from "react";
-import { HiMenu } from "react-icons/hi";
 import { Link } from "@tanstack/react-router";
 import { NAV_LINKS } from "../../config/navigation.config";
 import { NavbarLogo } from "./NavbarLogo";
-import { MobileNavSheet } from "./MobileNavSheet";
 
 export const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -19,11 +16,11 @@ export const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[90vw] z-50 flex items-center justify-between py-5 px-6 rounded-2xl transition-all duration-300 ${
+      className={`fixed top-4 md:top-6 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ${
         isScrolled
-          ? "backdrop-blur-2xl bg-[#0A0A0A]/90 border border-white/15 shadow-[0_12px_35px_rgba(0,0,0,0.85)] py-4"
+          ? "backdrop-blur-2xl bg-[#0A0A0A]/90 border border-white/15 shadow-[0_12px_35px_rgba(0,0,0,0.85)]"
           : "backdrop-blur-xl bg-[#121212]/85 border border-white/10 shadow-2xl"
-      }`}
+      } w-[92%] max-w-sm md:max-w-[90vw] py-3.5 px-6 md:py-5 rounded-2xl flex items-center justify-center md:justify-between`}
     >
       <NavbarLogo />
 
@@ -58,17 +55,6 @@ export const Navbar = () => {
           Discuss a Project
         </a>
       </div>
-
-      {/* Mobile Hamburger */}
-      <button
-        className="md:hidden text-white p-2"
-        onClick={() => setIsOpen(true)}
-      >
-        <HiMenu className="w-6 h-6" />
-      </button>
-
-      {/* Apple-Style Mobile Bottom Sheet */}
-      <MobileNavSheet isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </nav>
   );
 };

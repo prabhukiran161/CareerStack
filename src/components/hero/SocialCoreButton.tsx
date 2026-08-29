@@ -35,7 +35,7 @@ export const SocialCoreButton = ({
         scale: isHovered && !isOpen ? 1.04 : 1,
       }}
       transition={{ duration: 0.3 }}
-      className="relative w-9.5 h-9.5 rounded-full flex items-center justify-center border border-white/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.45),inset_0_-1px_0_rgba(0,0,0,0.18),0_8px_24px_rgba(0,0,0,0.45)] z-20"
+      className="relative w-7 md:w-9.5 h-7 md:h-9.5 rounded-full flex items-center justify-center border border-white/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.45),inset_0_-1px_0_rgba(0,0,0,0.18),0_8px_24px_rgba(0,0,0,0.45)] z-20"
     >
       <AnimatePresence mode="wait">
         {isOpen ? (

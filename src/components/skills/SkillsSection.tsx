@@ -20,9 +20,12 @@ export const SkillsSection = () => {
   
   useEffect(() => {
     if (isInView && introState === "idle") {
-      setIntroState("playing");
-      const timer = setTimeout(() => setIntroState("completed"), 2500);
-      return () => clearTimeout(timer);
+      const startTimer = setTimeout(() => setIntroState("playing"), 0);
+      const endTimer = setTimeout(() => setIntroState("completed"), 2500);
+      return () => {
+        clearTimeout(startTimer);
+        clearTimeout(endTimer);
+      };
     }
   }, [isInView, introState]);
 

@@ -14,7 +14,7 @@ export const HeroPortrait = ({
 }: HeroPortraitProps) => {
   return (
     <motion.div
-      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[55%] md:-translate-y-[45%] z-10 w-[100px] md:w-[350px] flex items-center justify-center pointer-events-none"
+      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:-translate-y-[45%] z-10 w-[190px] xs:w-[240px] sm:w-[270px] md:w-[350px] flex items-center justify-center pointer-events-none"
       initial={skipAnimation ? false : { scale: 0, opacity: 0 }}
       animate={visible ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
       transition={{
