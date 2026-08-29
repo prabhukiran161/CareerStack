@@ -30,10 +30,10 @@ export const HeroTypography = ({ visible, skipAnimation }: HeroTypographyProps) 
           leading-[0.72]
         "
       >
-        <span className="block h-full pb-2 md:pb-6 text-[46vw] md:text-[22vw] text-transparent bg-clip-text bg-linear-to-b from-gray-200 via-gray-400 to-black/0.1">
+        <span className="block h-full pb-4 md:pb-6 pt-10 md:pt-0 text-[46vw] md:text-[22vw] text-transparent bg-clip-text bg-linear-to-b from-gray-200 via-gray-400 to-black/0.1">
           FULL STACK
         </span>
-        <span className="block h-full pb-6 md:pb-10 text-[46vw] md:text-[22vw] text-transparent bg-clip-text bg-linear-to-b from-gray-200 via-gray-400 to-black/0.1">
+        <span className="block h-full pb-14 md:pb-6  text-[46vw] md:text-[22vw] text-transparent bg-clip-text bg-linear-to-b from-gray-200 via-gray-400 to-black/0.1">
           DEVELOPER
         </span>
       </div>

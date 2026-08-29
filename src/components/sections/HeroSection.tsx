@@ -23,7 +23,7 @@ export const HeroSection = ({ onTaglineComplete }: HeroSectionProps) => {
   return (
     <section
       id="home"
-      className="relative w-full h-screen h-[100dvh] pt-16 pb-24 md:pt-20 md:pb-12 bg-black bg-grid-pattern overflow-hidden flex flex-col items-center justify-center"
+      className="relative w-full h-screen h-[100dvh] pt-16 pb-24 md:pt-20 md:pb-12 bg-black bg-grid-pattern overflow-hidden flex flex-col items-center justify-center gap-3"
     >
       <HeroTechField converging={converging} />
       <HeroEnergyBurst active={flash} />
