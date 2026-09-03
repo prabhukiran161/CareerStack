@@ -10,8 +10,8 @@ const BOTTOM_NAV_ITEMS = [
 
 export const MobileBottomNav = () => {
   return (
-    <div className="md:hidden fixed bottom-0 left-1/2 -translate-x-1/2 w-[100%] max-w-sm z-50 pb-1">
-      <nav className="bg-[#0A0A0A]/90 backdrop-blur-2xl border border-white/10 py-2.5 shadow-[0_10px_35px_rgba(0,0,0,0.9)] flex items-center justify-around">
+    <div className="md:hidden fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-sm z-50 pb-1.5">
+      <nav className="bg-[#0A0A0A]/90 backdrop-blur-2xl border-t border-white/10 py-2.5 shadow-[0_10px_35px_rgba(0,0,0,0.9)] flex items-center justify-around">
         {BOTTOM_NAV_ITEMS.map((item) => {
           const IconComponent = item.icon;
           return (
