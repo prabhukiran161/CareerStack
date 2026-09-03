@@ -10,8 +10,8 @@ const BOTTOM_NAV_ITEMS = [
 
 export const MobileBottomNav = () => {
   return (
-    <div className="md:hidden fixed bottom-5 left-1/2 -translate-x-1/2 w-[92%] max-w-sm z-50">
-      <nav className="bg-[#0A0A0A]/90 backdrop-blur-2xl border border-white/10 rounded-2xl py-2.5 shadow-[0_10px_35px_rgba(0,0,0,0.9)] flex items-center justify-around">
+    <div className="md:hidden fixed bottom-0 left-1/2 -translate-x-1/2 w-[100%] max-w-sm z-50">
+      <nav className="bg-[#0A0A0A]/90 backdrop-blur-2xl border border-white/10 py-2.5 shadow-[0_10px_35px_rgba(0,0,0,0.9)] flex items-center justify-around">
         {BOTTOM_NAV_ITEMS.map((item) => {
           const IconComponent = item.icon;
           return (
@@ -24,10 +24,10 @@ export const MobileBottomNav = () => {
               {({ isActive }) => (
                 <>
                   <div
-                    className={`w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-300 ${
+                    className={`w-10 h-10 flex items-center justify-center  transition-all duration-300 ${
                       isActive
-                        ? "bg-[#381416]/90 border border-[#FE3548]/60 text-[#FE6B7B] shadow-[0_0_16px_rgba(254,53,72,0.45)]"
-                        : "border border-transparent text-gray-400 group-hover:text-gray-200"
+                        ? " text-[#FE6B7B]"
+                        : "text-gray-400 group-hover:text-gray-200"
                     }`}
                   >
                     <IconComponent className="w-5 h-5" />
