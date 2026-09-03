@@ -10,8 +10,8 @@ const BOTTOM_NAV_ITEMS = [
 
 export const MobileBottomNav = () => {
   return (
-    <div className="md:hidden fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-sm z-50 pb-1.5">
-      <nav className="bg-[#0A0A0A]/90 backdrop-blur-2xl border-t border-white/10 py-2.5 shadow-[0_10px_35px_rgba(0,0,0,0.9)] flex items-center justify-around">
+    <div className="md:hidden fixed -bottom-1 left-1/2 -translate-x-1/2 w-full max-w-sm z-50 pb-1.5">
+      <nav className="bg-[#0A0A0A]/90 backdrop-blur-2xl border-t border-white/10 pt-2 pb-4 shadow-[0_10px_35px_rgba(0,0,0,0.9)] flex items-center justify-around">
         {BOTTOM_NAV_ITEMS.map((item) => {
           const IconComponent = item.icon;
           return (
@@ -19,14 +19,14 @@ export const MobileBottomNav = () => {
               key={item.name}
               to={item.href}
               activeOptions={{ exact: item.exact }}
-              className="flex flex-col items-center justify-center transition-all duration-200 group"
+              className="w-15 flex flex-col items-center justify-center transition-all duration-200 group"
             >
               {({ isActive }) => (
                 <>
                   <div
                     className={`w-10 h-10 flex items-center justify-center  transition-all duration-300 ${
                       isActive
-                        ? " text-[#FE6B7B]"
+                        ? " text-brand-red/90"
                         : "text-gray-400 group-hover:text-gray-200"
                     }`}
                   >
@@ -35,7 +35,7 @@ export const MobileBottomNav = () => {
                   <span
                     className={`text-[10px] tracking-widest font-bold mt-1 transition-colors duration-200 ${
                       isActive
-                        ? "text-[#FE6B7B]"
+                        ? "text-brand-red/90"
                         : "text-gray-400 group-hover:text-gray-300"
                     }`}
                   >
