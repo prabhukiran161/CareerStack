@@ -5,8 +5,14 @@ import { OrbitContext } from "./orbit/OrbitContext";
 
 export const SkillsTypography = () => {
   const { isMobile, introState } = useContext(OrbitContext);
-  const typographyOffsetTop = getResponsive(SKILLS_CONFIG.layout.typographyOffsetTop, isMobile);
-  const typographyFontSize = getResponsive(SKILLS_CONFIG.layout.typographyFontSize, isMobile);
+  const typographyOffsetTop = getResponsive(
+    SKILLS_CONFIG.layout.typographyOffsetTop,
+    isMobile,
+  );
+  const typographyFontSize = getResponsive(
+    SKILLS_CONFIG.layout.typographyFontSize,
+    isMobile,
+  );
   const { timeline, presets, master } = SKILLS_CONFIG.animation;
   const { typography } = presets;
 

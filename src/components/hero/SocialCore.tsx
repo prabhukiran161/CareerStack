@@ -2,10 +2,12 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SOCIAL_LINKS } from "../../config/social.config";
 import { useSocialRotation } from "../../hooks/useSocialRotation";
+import { useIsMobile } from "../../hooks/useIsMobile";
 import { SocialCoreButton } from "./SocialCoreButton";
 import { SocialOrbitNode } from "./SocialOrbitNode";
 
 export const SocialCore = ({ enabled, skipAnimation }: { enabled: boolean; skipAnimation?: boolean }) => {
+  const isMobile = useIsMobile();
   const [isOpen, setIsOpen] = useState(false);
   const [isCoreHovered, setIsCoreHovered] = useState(false);
 
@@ -41,7 +43,7 @@ export const SocialCore = ({ enabled, skipAnimation }: { enabled: boolean; skipA
           <AnimatePresence>
             {isOpen &&
               SOCIAL_LINKS.map((link, index) => (
-                <SocialOrbitNode key={link.name} link={link} index={index} />
+                <SocialOrbitNode key={link.name} link={link} index={index} isMobile={isMobile} />
               ))}
           </AnimatePresence>
         </div>

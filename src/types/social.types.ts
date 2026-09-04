@@ -1,8 +1,10 @@
 import type { IconType } from "react-icons";
 
+export type ResponsiveProp<T> = T | { desktop: T; mobile: T };
+
 export type OrbitPosition = {
-  x: number;
-  y: number;
+  x: ResponsiveProp<number>;
+  y: ResponsiveProp<number>;
 };
 
 export type SocialLink = {

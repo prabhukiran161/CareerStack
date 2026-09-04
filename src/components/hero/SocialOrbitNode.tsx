@@ -1,18 +1,25 @@
 import { motion } from "framer-motion";
 import type { SocialLink } from "../../types/social.types";
+import { getResponsive, SOCIAL_CORE_CONFIG } from "../../config/social.config";
 
 type SocialOrbitNodeProps = {
   link: SocialLink;
   index: number;
+  isMobile: boolean;
 };
 
-export const SocialOrbitNode = ({ link, index }: SocialOrbitNodeProps) => {
+export const SocialOrbitNode = ({ link, index, isMobile }: SocialOrbitNodeProps) => {
+  const x = getResponsive(link.orbit.x, isMobile);
+  const y = getResponsive(link.orbit.y, isMobile);
+  const nodeSize = getResponsive(SOCIAL_CORE_CONFIG.nodeSize, isMobile);
+  const iconSize = getResponsive(SOCIAL_CORE_CONFIG.iconSize, isMobile);
+
   return (
     <motion.div
       initial={{ x: 0, y: 0, scale: 0.7, opacity: 0 }}
       animate={{
-        x: link.orbit.x,
-        y: link.orbit.y,
+        x,
+        y,
         scale: 1,
         opacity: 1,
       }}
@@ -45,16 +52,20 @@ export const SocialOrbitNode = ({ link, index }: SocialOrbitNodeProps) => {
         rel="noopener noreferrer"
         onClick={(e) => e.stopPropagation()}
         className="
-          relative w-11 h-11 rounded-full 
+          relative rounded-full 
           bg-[#080808]/90 border border-white/20 backdrop-blur-md 
           flex items-center justify-center 
           text-[#C8CBD2] hover:text-brand-red hover:drop-shadow-[0_0_6px_rgba(229,9,20,0.45)]
           transition-colors duration-200
           shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]
         "
+        style={{
+          width: `${nodeSize}px`,
+          height: `${nodeSize}px`,
+        }}
         aria-label={link.name}
       >
-        <link.Icon size={18} />
+        <link.Icon size={iconSize} />
       </a>
     </motion.div>
   );

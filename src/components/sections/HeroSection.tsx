@@ -25,11 +25,10 @@ export const HeroSection = ({ onTaglineComplete }: HeroSectionProps) => {
       id="home"
       className="relative w-full h-screen h-[100dvh] pt-16 pb-24 md:pt-20 md:pb-12 bg-black bg-grid-pattern overflow-hidden flex flex-col items-center justify-center gap-3"
     >
-      <HeroTechField converging={converging} />
-      <HeroEnergyBurst active={flash} />
-
       {/* Section 1: Typography + Portrait (Centered Box with bottom margin) */}
       <div className="relative w-full pt-10 h-[280px] sm:h-[280px] md:h-[540px] flex flex-col items-center justify-center">
+        <HeroTechField converging={converging} />
+        <HeroEnergyBurst active={flash} />
         <HeroTypography
           visible={showTypography}
           skipAnimation={hasHeroAnimationPlayed}
