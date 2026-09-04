@@ -9,8 +9,15 @@ import {
 import { FaXTwitter } from "react-icons/fa6";
 import type { SocialLink, ResponsiveProp } from "../types/social.types";
 
-export const getResponsive = <T>(val: ResponsiveProp<T>, isMobile: boolean): T => {
-  if (typeof val === "object" && val !== null && ("desktop" in val || "mobile" in val)) {
+export const getResponsive = <T>(
+  val: ResponsiveProp<T>,
+  isMobile: boolean,
+): T => {
+  if (
+    typeof val === "object" &&
+    val !== null &&
+    ("desktop" in val || "mobile" in val)
+  ) {
     const responsiveVal = val as { desktop: T; mobile: T };
     return isMobile ? responsiveVal.mobile : responsiveVal.desktop;
   }
@@ -37,7 +44,7 @@ export const SOCIAL_LINKS: SocialLink[] = [
   {
     name: "YouTube",
     Icon: FaYoutube,
-    href: "https://youtube.com/",
+    href: "https://www.youtube.com/@prabhukiran161",
     orbit: {
       x: { desktop: -90, mobile: -60 },
       y: { desktop: -90, mobile: -65 },
@@ -46,7 +53,7 @@ export const SOCIAL_LINKS: SocialLink[] = [
   {
     name: "Instagram",
     Icon: FaInstagram,
-    href: "https://instagram.com/",
+    href: "https://www.instagram.com/prabhukiran_161",
     orbit: {
       x: { desktop: -90, mobile: -65 },
       y: { desktop: -160, mobile: -110 },
@@ -55,7 +62,7 @@ export const SOCIAL_LINKS: SocialLink[] = [
   {
     name: "X",
     Icon: FaXTwitter,
-    href: "https://x.com/",
+    href: "https://x.com/prabhukiran_161",
     orbit: {
       x: { desktop: -60, mobile: -45 },
       y: { desktop: -220, mobile: -150 },
@@ -64,7 +71,7 @@ export const SOCIAL_LINKS: SocialLink[] = [
   {
     name: "GitHub",
     Icon: FaGithub,
-    href: "https://github.com/",
+    href: "https://github.com/prabhukiran161",
     orbit: {
       x: { desktop: 10, mobile: 0 },
       y: { desktop: -250, mobile: -170 },
@@ -73,7 +80,7 @@ export const SOCIAL_LINKS: SocialLink[] = [
   {
     name: "LinkedIn",
     Icon: FaLinkedinIn,
-    href: "https://linkedin.com/",
+    href: "https://www.linkedin.com/in/prabhukiran161",
     orbit: {
       x: { desktop: 80, mobile: 45 },
       y: { desktop: -220, mobile: -150 },
@@ -82,7 +89,7 @@ export const SOCIAL_LINKS: SocialLink[] = [
   {
     name: "Email",
     Icon: HiOutlineMail,
-    href: "mailto:hello@example.com",
+    href: "mailto:prabhukiran161@gmail.com",
     orbit: {
       x: { desktop: 110, mobile: 65 },
       y: { desktop: -160, mobile: -110 },
@@ -91,7 +98,7 @@ export const SOCIAL_LINKS: SocialLink[] = [
   {
     name: "WhatsApp",
     Icon: FaWhatsapp,
-    href: "https://whatsapp.com/",
+    href: "https://wa.me/qr/Q3JYMRFCUZATC1",
     orbit: {
       x: { desktop: 110, mobile: 60 },
       y: { desktop: -95, mobile: -65 },
