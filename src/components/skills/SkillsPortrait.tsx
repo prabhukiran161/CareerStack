@@ -1,19 +1,20 @@
 import { useContext } from "react";
 import { motion } from "framer-motion";
-import { SKILLS_CONFIG } from "../../config/skills.config";
+import { getResponsive, SKILLS_CONFIG } from "../../config/skills.config";
 import { OrbitContext } from "./orbit/OrbitContext";
 
 export const SkillsPortrait = () => {
-  const { desktop } = SKILLS_CONFIG.layout.portraitWidth;
-  const { introState } = useContext(OrbitContext);
+  const { isMobile, introState } = useContext(OrbitContext);
+  const portraitWidth = getResponsive(SKILLS_CONFIG.layout.portraitWidth, isMobile);
+  const portraitYOffset = getResponsive(SKILLS_CONFIG.layout.portraitYOffset, isMobile);
   const { timeline, presets, master } = SKILLS_CONFIG.animation;
 
   return (
     <div
       className="relative z-30 pointer-events-none"
       style={{
-        width: `${desktop}px`,
-        transform: "translateY(30px)",
+        width: `${portraitWidth}px`,
+        transform: `translateY(${portraitYOffset}px)`,
       }}
     >
       <motion.img

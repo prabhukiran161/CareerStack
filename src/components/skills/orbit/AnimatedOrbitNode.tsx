@@ -5,6 +5,7 @@ import {
   type OrbitNodeConfig,
   type OrbitConfig,
   SKILLS_CONFIG,
+  getResponsive,
 } from "../../../config/skills.config";
 import { OrbitNode } from "./OrbitNode";
 import { OrbitContext } from "./OrbitContext";
@@ -26,12 +27,16 @@ export const AnimatedOrbitNode = ({
   onHoverStart,
   onHoverEnd,
 }: AnimatedOrbitNodeProps) => {
-  const { backNodesRef, frontNodesRef } = useContext(OrbitContext);
+  const { isMobile, backNodesRef, frontNodesRef } = useContext(OrbitContext);
   const [isBehind, setIsBehind] = useState(false);
 
-  const { orbitVisualOffset, portraitOcclusionThreshold, glassTiltStrength } =
-    SKILLS_CONFIG.layout;
-  const ry = orbit.radius * SKILLS_CONFIG.layout.ellipseScaleY;
+  const { portraitOcclusionThreshold, glassTiltStrength } = SKILLS_CONFIG.layout;
+  const orbitVisualOffset = getResponsive(SKILLS_CONFIG.layout.orbitVisualOffset, isMobile);
+  const radius = getResponsive(orbit.radius, isMobile);
+  const yOffset = getResponsive(orbit.yOffset, isMobile);
+  const iconScale = getResponsive(orbit.iconScale, isMobile);
+  const ellipseScaleY = getResponsive(SKILLS_CONFIG.layout.ellipseScaleY, isMobile);
+  const ry = radius * ellipseScaleY;
 
   // 1. Current Angle
   const currentAngle = useTransform(
@@ -52,13 +57,13 @@ export const AnimatedOrbitNode = ({
   // 2. Position
   const x = useTransform(currentAngle, (angle) => {
     const radians = (angle * Math.PI) / 180;
-    return Math.cos(radians) * orbit.radius + node.xOffset;
+    return Math.cos(radians) * radius + node.xOffset;
   });
 
   const y = useTransform(currentAngle, (angle) => {
     const radians = (angle * Math.PI) / 180;
     return (
-      Math.sin(radians) * ry + orbit.yOffset + orbitVisualOffset + node.yOffset
+      Math.sin(radians) * ry + yOffset + orbitVisualOffset + node.yOffset
     );
   });
 
@@ -79,7 +84,7 @@ export const AnimatedOrbitNode = ({
   const depthScale = useTransform(
     depth,
     (d) =>
-      orbit.iconScale *
+      iconScale *
       (SKILLS_CONFIG.layout.iconMinScale +
         d * (SKILLS_CONFIG.layout.iconMaxScale - SKILLS_CONFIG.layout.iconMinScale)),
   );

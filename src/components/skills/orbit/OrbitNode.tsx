@@ -1,8 +1,11 @@
+import { useContext } from "react";
 import { motion, MotionValue } from "framer-motion";
 import {
   type OrbitNodeConfig,
   SKILLS_CONFIG,
+  getResponsive,
 } from "../../../config/skills.config";
+import { OrbitContext } from "./OrbitContext";
 
 type OrbitNodeProps = {
   node: OrbitNodeConfig;
@@ -33,8 +36,11 @@ export const OrbitNode = ({
   onHoverStart,
   onHoverEnd,
 }: OrbitNodeProps) => {
+  const { isMobile } = useContext(OrbitContext);
   const { Icon, label, iconColor, labelColor } = node;
-  const { iconSize, iconSaturation, iconBrightness } = SKILLS_CONFIG.layout;
+  const { iconSaturation, iconBrightness } = SKILLS_CONFIG.layout;
+  const iconSize = getResponsive(SKILLS_CONFIG.layout.iconSize, isMobile);
+  const nodeContainerSize = getResponsive(SKILLS_CONFIG.layout.nodeContainerSize, isMobile);
 
   // Pure deterministic variation based on node globalIndex
   const floatDuration = 4 + ((globalIndex * 37) % 20) / 10;
@@ -58,7 +64,11 @@ export const OrbitNode = ({
     >
       {/* Soft Float Container */}
       <motion.div
-        className="relative w-[60px] h-[60px] flex items-center justify-center"
+        className="relative flex items-center justify-center"
+        style={{
+          width: `${nodeContainerSize}px`,
+          height: `${nodeContainerSize}px`,
+        }}
         animate={{ y: ["-2px", "2px", "-2px"] }}
         transition={{
           duration: floatDuration,
@@ -102,8 +112,11 @@ export const OrbitNode = ({
 
       {/* Label */}
       <span
-        className="absolute top-[70px] opacity-0 translate-y-[6px] scale-95 group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100 transition-all duration-300 text-xs font-medium tracking-wide whitespace-nowrap"
-        style={{ color: labelColor }}
+        className="absolute opacity-0 translate-y-[6px] scale-95 group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100 transition-all duration-300 text-xs font-medium tracking-wide whitespace-nowrap"
+        style={{
+          color: labelColor,
+          top: `${nodeContainerSize + 10}px`,
+        }}
       >
         {label}
       </span>

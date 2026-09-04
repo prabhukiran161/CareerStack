@@ -7,7 +7,10 @@ import { OrbitContext } from "./orbit/OrbitContext";
 import { UnderTheHoodTagline } from "./UnderTheHoodTagline";
 import { SKILLS_CONFIG } from "../../config/skills.config";
 
+import { useIsMobile } from "../../hooks/useIsMobile";
+
 export const SkillsSection = () => {
+  const isMobile = useIsMobile();
   const [backNodesRef, setBackNodesRef] = useState<HTMLDivElement | null>(null);
   const [frontNodesRef, setFrontNodesRef] = useState<HTMLDivElement | null>(null);
   
@@ -66,7 +69,7 @@ export const SkillsSection = () => {
       ref={containerRef}
       className="relative w-full h-screen bg-black bg-grid-pattern overflow-hidden flex items-center justify-center"
     >
-      <OrbitContext.Provider value={{ introState, iconIntroProgress, rotationMultiplier, backNodesRef, frontNodesRef }}>
+      <OrbitContext.Provider value={{ isMobile, introState, iconIntroProgress, rotationMultiplier, backNodesRef, frontNodesRef }}>
         {/* 1. TECH STACK Typography - Behind everything */}
         <div className="absolute inset-0 z-0 flex items-center justify-center">
           <SkillsTypography />

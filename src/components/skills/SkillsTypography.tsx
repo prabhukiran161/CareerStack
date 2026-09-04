@@ -1,11 +1,12 @@
 import { useContext } from "react";
 import { motion } from "framer-motion";
-import { SKILLS_CONFIG } from "../../config/skills.config";
+import { getResponsive, SKILLS_CONFIG } from "../../config/skills.config";
 import { OrbitContext } from "./orbit/OrbitContext";
 
 export const SkillsTypography = () => {
-  const { typographyOffsetTop } = SKILLS_CONFIG.layout;
-  const { introState } = useContext(OrbitContext);
+  const { isMobile, introState } = useContext(OrbitContext);
+  const typographyOffsetTop = getResponsive(SKILLS_CONFIG.layout.typographyOffsetTop, isMobile);
+  const typographyFontSize = getResponsive(SKILLS_CONFIG.layout.typographyFontSize, isMobile);
   const { timeline, presets, master } = SKILLS_CONFIG.animation;
   const { typography } = presets;
 
@@ -27,7 +28,10 @@ export const SkillsTypography = () => {
         y: typographyOffsetTop,
       }}
     >
-      <span className="block text-[24vw] text-transparent bg-clip-text bg-linear-to-b from-gray-200 via-gray-400 to-black/50">
+      <span
+        className="block text-transparent bg-clip-text bg-linear-to-b from-gray-200 via-gray-400 to-black/50"
+        style={{ fontSize: typographyFontSize }}
+      >
         TECH STACK
       </span>
     </motion.div>

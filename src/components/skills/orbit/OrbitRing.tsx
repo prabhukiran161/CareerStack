@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { motion } from "framer-motion";
-import { SKILLS_CONFIG, type OrbitConfig } from "../../../config/skills.config";
+import { SKILLS_CONFIG, getResponsive, type OrbitConfig } from "../../../config/skills.config";
 import { OrbitContext } from "./OrbitContext";
 
 type OrbitRingProps = {
@@ -9,10 +9,13 @@ type OrbitRingProps = {
 };
 
 export const OrbitRing = ({ config, isFront }: OrbitRingProps) => {
-  const { radius, color, glowOpacity, blur } = config;
-  const ry = radius * SKILLS_CONFIG.layout.ellipseScaleY;
+  const { isMobile, introState } = useContext(OrbitContext);
+  const { color, glowOpacity, blur } = config;
+  const radius = getResponsive(config.radius, isMobile);
+  const yOffset = getResponsive(config.yOffset, isMobile);
+  const ellipseScaleY = getResponsive(SKILLS_CONFIG.layout.ellipseScaleY, isMobile);
+  const ry = radius * ellipseScaleY;
   
-  const { introState } = useContext(OrbitContext);
   const { timeline, presets, master } = SKILLS_CONFIG.animation;
 
   // Since we render inside a relative container, we center it using 50%
@@ -51,7 +54,7 @@ export const OrbitRing = ({ config, isFront }: OrbitRingProps) => {
         // translate(-50%, -50%) centers the SVG box over the origin.
         // yOffset is pure vertical translation for 3D stacking.
         x: "-50%",
-        y: `calc(-50% + ${config.yOffset}px)`,
+        y: `calc(-50% + ${yOffset}px)`,
       }}
     >
       <svg

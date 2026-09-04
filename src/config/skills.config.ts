@@ -17,10 +17,20 @@ import { BiLogoPostgresql } from "react-icons/bi";
 import { TbBrandOpenai, TbBrandVscode } from "react-icons/tb";
 import type { IconType } from "react-icons";
 
+export type ResponsiveProp<T> = T | { desktop: T; mobile: T };
+
+export const getResponsive = <T>(val: ResponsiveProp<T>, isMobile: boolean): T => {
+  if (typeof val === "object" && val !== null && ("desktop" in val || "mobile" in val)) {
+    const responsiveVal = val as { desktop: T; mobile: T };
+    return isMobile ? responsiveVal.mobile : responsiveVal.desktop;
+  }
+  return val as T;
+};
+
 export type OrbitConfig = {
   id: string;
-  radius: number;
-  yOffset: number;
+  radius: ResponsiveProp<number>;
+  yOffset: ResponsiveProp<number>;
   rotationOffset: number;
   color: string;
   speed: number;
@@ -28,7 +38,7 @@ export type OrbitConfig = {
   blur: number;
   glowOpacity: number;
   nodeGlowOpacity: number;
-  iconScale: number;
+  iconScale: ResponsiveProp<number>;
 };
 
 export type OrbitNodeConfig = {
@@ -48,12 +58,33 @@ export const SKILLS_CONFIG = {
     portraitWidth: {
       desktop: 410,
       tablet: 340,
-      mobile: 260,
+      mobile: 300,
     },
-    ellipseScaleY: 0.12,
+    portraitYOffset: {
+      desktop: 30,
+      mobile: 15,
+    },
+    ellipseScaleY: {
+      desktop: 0.12,
+      mobile: 0.14,
+    },
     verticalGap: 32,
-    typographyOffsetTop: -135,
-    iconSize: 26,
+    typographyOffsetTop: {
+      desktop: -135,
+      mobile: -160,
+    },
+    typographyFontSize: {
+      desktop: "24vw",
+      mobile: "40vw",
+    },
+    iconSize: {
+      desktop: 26,
+      mobile: 20,
+    },
+    nodeContainerSize: {
+      desktop: 60,
+      mobile: 48,
+    },
     iconSaturation: 0.8,
     iconBrightness: 0.95,
     iconMinOpacity: 1, // Muted, premium fade
@@ -61,8 +92,17 @@ export const SKILLS_CONFIG = {
     iconMinScale: 0.95,
     iconMaxScale: 1,
     glassTiltStrength: 4, // Subtle rotation limit
-    orbitVisualOffset: -8, // Anchor the icon visually to the SVG line
+    orbitVisualOffset: {
+      desktop: -8,
+      mobile: -4,
+    },
     portraitOcclusionThreshold: -0.15, // Clip icons early
+  },
+  tagline: {
+    bottomOffset: {
+      desktop: "bottom-18",
+      mobile: "bottom-40",
+    },
   },
   animation: {
     master: {
@@ -144,8 +184,8 @@ export const SKILLS_CONFIG = {
   orbits: [
     {
       id: "top",
-      radius: 160,
-      yOffset: -130,
+      radius: { desktop: 160, mobile: 90 },
+      yOffset: { desktop: -130, mobile: -100 },
       rotationOffset: 0,
       color: "#FE3548", // Brand Red
       speed: 16,
@@ -153,12 +193,12 @@ export const SKILLS_CONFIG = {
       blur: 0.3,
       glowOpacity: 0.4,
       nodeGlowOpacity: 0.18,
-      iconScale: 0.93,
+      iconScale: { desktop: 0.93, mobile: 0.85 },
     },
     {
       id: "middle",
-      radius: 290, // Increased radius for breathing room
-      yOffset: 30,
+      radius: { desktop: 290, mobile: 140 }, // Increased radius for breathing room
+      yOffset: { desktop: 30, mobile: 20 },
       rotationOffset: 30, // Organic stagger
       color: "#FFFFFF", // White
       speed: 24,
@@ -166,12 +206,12 @@ export const SKILLS_CONFIG = {
       blur: 0,
       glowOpacity: 0.3,
       nodeGlowOpacity: 0.06,
-      iconScale: 0.95,
+      iconScale: { desktop: 0.95, mobile: 0.85 },
     },
     {
       id: "bottom",
-      radius: 360,
-      yOffset: 190,
+      radius: { desktop: 360, mobile: 180 },
+      yOffset: { desktop: 190, mobile: 140 },
       rotationOffset: 20, // Organic stagger
       color: "#FE3548", // Brand Red
       speed: 32,
@@ -179,7 +219,7 @@ export const SKILLS_CONFIG = {
       blur: 0.3,
       glowOpacity: 0.4,
       nodeGlowOpacity: 0.18,
-      iconScale: 1,
+      iconScale: { desktop: 1, mobile: 0.88 },
     },
   ] as OrbitConfig[],
   nodes: [
