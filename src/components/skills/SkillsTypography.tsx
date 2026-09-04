@@ -29,7 +29,7 @@ export const SkillsTypography = () => {
       }}
     >
       <span
-        className="block text-transparent bg-clip-text bg-linear-to-b from-gray-200 via-gray-400 to-black/50"
+        className="block whitespace-nowrap text-transparent bg-clip-text bg-linear-to-b from-gray-200 via-gray-400 to-black/50"
         style={{ fontSize: typographyFontSize }}
       >
         TECH STACK
